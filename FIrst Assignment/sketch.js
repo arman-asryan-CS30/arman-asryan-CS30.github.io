@@ -4,7 +4,10 @@
 
 //---------------Global Variables----------------------
 
-let currentBack = 0;
+let currentBack = 1;
+let bombX;
+let bombY;
+let bombActive = false;
 
 //---------------First Background--------------------------------
 function drawClouds1(x,y){
@@ -44,32 +47,140 @@ function drawBackground1(){
   drawClouds1(windowWidth-760,windowHeight-450)
   
   drawClouds2(windowWidth/2,windowHeight/10)
-  drawClouds2((windowWidth*3)/4,700)
+  drawClouds2((windowWidth*3)/4,windowHeight-(windowHeight/4))
 }
 
 //-----------------------Second Background---------------------------------
+function drawBackground2() {
+   background(111, 197, 222)
 
+  //Sun
+  fill(255, 235, 26)
+  stroke(255, 235, 26)
+  circle(windowWidth-windowWidth/20,20,100)
+  
+  //Buildings
+  fill(0)
+  stroke(0)
+  //First building with the windows
+  rect(windowWidth/8,windowHeight-(windowHeight/3),windowWidth/5,windowHeight/3)
+  fill(255,255,0)
+  rect(windowWidth/7,windowHeight-(windowHeight/3.2),windowWidth/14,windowWidth/14)
+  rect(windowWidth/4.3,windowHeight-(windowHeight/3.2),windowWidth/14,windowWidth/14)
+  rect(windowWidth/7,windowHeight-(windowHeight/4.5),windowWidth/14,windowWidth/14)
+  rect(windowWidth/4.3,windowHeight-(windowHeight/4.5),windowWidth/14,windowWidth/14)
+  rect(windowWidth/7,windowHeight-(windowHeight/7.8),windowWidth/14,windowWidth/14)
+  rect(windowWidth/4.3,windowHeight-(windowHeight/7.8),windowWidth/14,windowWidth/14)
 
-//----------------Character-------------------------------------------
+  //Second building
+  fill(0)
+  rect(windowWidth/2.5,windowHeight-(windowHeight/2),windowWidth/5,windowHeight/2)
+  fill(255,255,0)
+  rect(windowWidth/2.35,windowHeight-(windowHeight/2.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/1.93,windowHeight-(windowHeight/2.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/2.35,windowHeight-(windowHeight/2.5),windowWidth/19,windowWidth/19)
+  rect(windowWidth/1.93,windowHeight-(windowHeight/2.5),windowWidth/19,windowWidth/19)
+  rect(windowWidth/2.35,windowHeight-(windowHeight/3.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/1.93,windowHeight-(windowHeight/3.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/2.35,windowHeight-(windowHeight/4.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/1.93,windowHeight-(windowHeight/4.1),windowWidth/19,windowWidth/19)
+  rect(windowWidth/2.35,windowHeight-(windowHeight/5.9),windowWidth/19,windowWidth/19)
+  rect(windowWidth/1.93,windowHeight-(windowHeight/5.9),windowWidth/19,windowWidth/19)
+
+  //
+  fill(0)
+  rect(windowWidth-(windowWidth/3),windowHeight-(windowHeight/2.5),windowWidth/3.5,windowHeight/2.5)
+  fill(255,255,0)
+  rect(windowWidth-(windowWidth/3.2),windowHeight-(windowHeight/2.7),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/4.5),windowHeight-(windowHeight/2.7),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/7.5),windowHeight-(windowHeight/2.7),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/3.2),windowHeight-(windowHeight/4),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/4.5),windowHeight-(windowHeight/4),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/7.5),windowHeight-(windowHeight/4),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/3.2),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/4.5),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
+  rect(windowWidth-(windowWidth/7.5),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
+}
+
+//----------------------------------------------Background 3---------------------------------
+function drawBackground3() {
+  background(0,4,53)
+
+  //Stars
+  noStroke()
+  circle(50,50,10)
+  circle(70,(windowHeight/2)-50,10)
+  circle(windowWidth/2,50,10)
+  fill("yellow")
+  circle(windowWidth/2,(windowHeight*5)/6,10)
+  crossStar(20,110,5,20)
+  crossStar(windowWidth-40,110,5,20)
+  fill("blue")
+  crossStar(windowWidth-90,windowHeight-70,10,50)
+  fill("red")
+  crossStar(100,windowHeight-70,10,50)
+
+  fill(255)
+  crossStar(windowWidth-200,(windowHeight/2)+40,10,50)
+  circle(90,60,10)
+  crossStar(500,500,5,20)
+  fill("red")
+  crossStar(200,200,5,20)
+  fill("lightblue")
+  crossStar(80,500,5,40)
+  fill(255,255,0)
+  crossStar(300,300,8,30)
+  fill(255)
+  crossStar(200,390,8,30)
+  //Planets
+  fill(196,164,132)
+  circle((windowWidth*2)/3,windowHeight/4,250)
+  fill(0,4,53)
+  circle((windowWidth*2)/3,windowHeight/4,200)
+  fill(255,255,0)
+  circle((windowWidth*2)/3,windowHeight/4,150)
+  
+ 
+}
+
+function crossStar(x,y,w,h) {
+  ellipse(x,y,w,h)
+  ellipse(x,y,h,w)
+}
+
+//----------------Characters-------------------------------------------
 
 function jet(x,y) {
   //Fuselage
   fill(0)
   stroke(0)
+  if (currentBack === 0){
+    fill(255)
+    stroke(255)
+  }
+  
   ellipse(x,y,100,20)
   fill(0)
+  if(currentBack===0){
+    fill(255)
+    stroke(255)
+  }
+
   stroke(0)
+  if (currentBack === 0) {
+    stroke(255)
+  }
 
   //Wings and vertical stabilizer
   triangle(x,y,x-45,y-20,x-45,y+20)
   triangle(x+40,y,x,y-40,x,y+40)
 }
 
-//Bullets
-function bullets(x,y) {
-  fill(255,255,0)
-  stroke(255,255,0)
-  line(x,y,x+100,y)
+function bomb(x,y) {
+  noStroke()
+  fill(0)    
+  ellipse(x,y,80,100)
+  triangle(x,y-30,x-50,y-70,x+50,y-70)
 }
 
 //-------------------Actions----------------------------
@@ -85,17 +196,15 @@ function mousePressed() {
   }
 }
 
-
-//Shooting
+//Dropping a bomb
 function keyPressed() {
-  if (key === " ") {      
-    let bulletX = mouseX ;
-    let bulletY = mouseY;
-    bullets(bulletX,bulletY)    
+  if (key === "b" && !bombActive) {
+    //Take plane's coordinates as starting point
+    bombX = mouseX; 
+    bombY = mouseY;
+    bombActive = true;
   }
 }
-
-
 
 
 function setup() {
@@ -104,11 +213,22 @@ function setup() {
 
 function draw() {
   if (currentBack === 0) {
+    drawBackground3()
+  }
+  else if (currentBack === 1) {
     drawBackground1()
   }
-  else{
-    background(255)
+  else if (currentBack === 2) {
+    drawBackground2()
   }
   
   jet(mouseX,mouseY)
+  
+  if (bombActive) {
+    bomb(bombX,bombY)
+    bombY = bombY + 10
+  }
+  if (bombY > windowHeight) {
+    bombActive = false;
+  }
 }
