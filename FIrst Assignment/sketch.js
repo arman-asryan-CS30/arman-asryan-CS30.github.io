@@ -148,6 +148,26 @@ function crossStar(x,y,w,h) {
   ellipse(x,y,h,w)
 }
 
+
+//------------------------------------------Backgrond 4---------------------------------------------------------------------------
+
+function drawBackground4() {
+  background(255, 170, 1)
+  noStroke()
+  fill(255, 162, 2)
+  circle(windowWidth/2,(windowHeight/2)-250,250)
+  fill(254, 137, 2)
+  circle(windowWidth/2,(windowHeight/2)-250,200)
+  fill(99, 50, 13)
+  triangle(0,(windowHeight*8)/9,0,windowHeight,windowWidth/4,500)
+  fill(150, 75, 0)
+  triangle(windowWidth/4,500,-5,windowHeight,windowWidth/2,windowHeight)
+  fill(120, 80, 50)
+  triangle(windowWidth-300,400,windowWidth/3,windowHeight,windowWidth/2,windowHeight)
+  fill(150, 100, 0)
+  triangle(windowWidth-300,400,windowWidth,windowHeight,windowWidth/2-10,windowHeight)
+}
+
 //----------------Characters-------------------------------------------
 
 function jet(x,y) {
@@ -216,10 +236,13 @@ function draw() {
     drawBackground3()
   }
   else if (currentBack === 1) {
-    drawBackground1()
+    drawBackground4()
   }
   else if (currentBack === 2) {
     drawBackground2()
+  }
+  else{
+    drawBackground4()
   }
   
   jet(mouseX,mouseY)
