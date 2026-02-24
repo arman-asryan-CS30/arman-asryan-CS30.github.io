@@ -236,7 +236,7 @@ function draw() {
     drawBackground3()
   }
   else if (currentBack === 1) {
-    drawBackground4()
+    drawBackground1()
   }
   else if (currentBack === 2) {
     drawBackground2()
