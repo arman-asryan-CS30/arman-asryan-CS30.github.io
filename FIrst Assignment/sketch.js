@@ -166,6 +166,8 @@ function drawBackground4() {
   triangle(windowWidth-300,400,windowWidth/3,windowHeight,windowWidth/2,windowHeight)
   fill(150, 100, 0)
   triangle(windowWidth-300,400,windowWidth,windowHeight,windowWidth/2-10,windowHeight)
+  fill(110, 50, 18)
+  triangle(windowWidth-0,550,windowWidth,windowHeight,windowWidth-140,700)
 }
 
 //----------------Characters-------------------------------------------
@@ -233,10 +235,10 @@ function setup() {
 
 function draw() {
   if (currentBack === 0) {
-    drawBackground3()
+    drawBackground1()
   }
   else if (currentBack === 1) {
-    drawBackground1()
+    drawBackground3()
   }
   else if (currentBack === 2) {
     drawBackground2()
