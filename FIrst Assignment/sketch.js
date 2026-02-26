@@ -4,7 +4,7 @@
 
 //---------------Global Variables----------------------
 
-let currentBack = 1;
+let currentBack = 0;
 let bombX;
 let bombY;
 let bombActive = false;
@@ -48,6 +48,9 @@ function drawBackground1(){
   
   drawClouds2(windowWidth/2,windowHeight/10)
   drawClouds2((windowWidth*3)/4,windowHeight-(windowHeight/4))
+  fill("White")
+  textSize(50)
+  text("Arman Asryan",20,windowHeight-20)
 }
 
 //-----------------------Second Background---------------------------------
@@ -100,6 +103,9 @@ function drawBackground2() {
   rect(windowWidth-(windowWidth/3.2),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
   rect(windowWidth-(windowWidth/4.5),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
   rect(windowWidth-(windowWidth/7.5),windowHeight-(windowHeight/7),windowWidth/16,windowWidth/16)
+  fill("White")
+  textSize(50)
+  text("Arman Asryan",20,windowHeight-20)
 }
 
 //----------------------------------------------Background 3---------------------------------
@@ -139,7 +145,9 @@ function drawBackground3() {
   circle((windowWidth*2)/3,windowHeight/4,200)
   fill(255,255,0)
   circle((windowWidth*2)/3,windowHeight/4,150)
-  
+  fill("White")
+  textSize(50)
+  text("Arman Asryan",20,windowHeight-20)
  
 }
 
@@ -168,6 +176,9 @@ function drawBackground4() {
   triangle(windowWidth-300,400,windowWidth,windowHeight,windowWidth/2-10,windowHeight)
   fill(110, 50, 18)
   triangle(windowWidth-0,550,windowWidth,windowHeight,windowWidth-140,700)
+  fill("White")
+  textSize(50)
+  text("Arman Asryan",20,windowHeight-20)
 }
 
 //----------------Characters-------------------------------------------
@@ -235,23 +246,23 @@ function setup() {
 
 function draw() {
   if (currentBack === 0) {
-    drawBackground1()
+    drawBackground3()
   }
   else if (currentBack === 1) {
-    drawBackground3()
+    drawBackground4()
   }
   else if (currentBack === 2) {
     drawBackground2()
   }
   else{
-    drawBackground4()
+    drawBackground1()
   }
   
   jet(mouseX,mouseY)
   
   if (bombActive) {
     bomb(bombX,bombY)
-    bombY = bombY + 10
+    bombY = bombY + 10 //falling of the bomb
   }
   if (bombY > windowHeight) {
     bombActive = false;
