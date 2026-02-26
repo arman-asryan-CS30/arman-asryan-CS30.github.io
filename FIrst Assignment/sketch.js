@@ -8,6 +8,9 @@ let currentBack = 0;
 let bombX;
 let bombY;
 let bombActive = false;
+let r = Math.floor(Math.random() * 255);
+let g = Math.floor(Math.random() * 255);
+let b = Math.floor(Math.random() * 255);
 
 //---------------First Background--------------------------------
 function drawClouds1(x,y){
@@ -185,23 +188,23 @@ function drawBackground4() {
 
 function jet(x,y) {
   //Fuselage
-  fill(0)
-  stroke(0)
+  fill(r,g,b)
+  noStroke()
   if (currentBack === 0){
+    noStroke()
     fill(255)
-    stroke(255)
   }
   
+  noStroke()
   ellipse(x,y,100,20)
-  fill(0)
+  fill(r,g,b)
   if(currentBack===0){
     fill(255)
-    stroke(255)
   }
 
-  stroke(0)
+  
   if (currentBack === 0) {
-    stroke(255)
+    noStroke()
   }
 
   //Wings and vertical stabilizer
@@ -223,10 +226,16 @@ function mousePressed() {
   if (mouseButton === "center") {
     currentBack = currentBack + 1;
   }
+  if (mouseButton === "left") {
+    r = Math.floor(Math.random() * 255);
+    g = Math.floor(Math.random() * 255);
+    b = Math.floor(Math.random() * 255);
+  }
 
   if (currentBack > 4) {
     currentBack = 0
   }
+
 }
 
 //Dropping a bomb
