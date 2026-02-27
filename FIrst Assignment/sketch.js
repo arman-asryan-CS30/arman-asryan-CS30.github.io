@@ -8,6 +8,8 @@ let currentBack = 0;
 let bombX;
 let bombY;
 let bombActive = false;
+
+//random color
 let r = Math.floor(Math.random() * 255);
 let g = Math.floor(Math.random() * 255);
 let b = Math.floor(Math.random() * 255);
@@ -221,11 +223,13 @@ function bomb(x,y) {
 
 //-------------------Actions----------------------------
 
-//Background changing
 function mousePressed() {
+  //Background change
   if (mouseButton === "center") {
     currentBack = currentBack + 1;
   }
+
+  //Color change of the jet
   if (mouseButton === "left") {
     r = Math.floor(Math.random() * 255);
     g = Math.floor(Math.random() * 255);
