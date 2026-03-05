@@ -1,22 +1,20 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Perlin Noise Project
+// Arman Asryan
+// March 5,2026
 
 
+//Global Variables
 let w = 5
-let noiseTime = 5; let noiseSpeed = 0.02
-let heightSum = 0;
+let noiseTime = 5; let noiseSpeed = 0.01
 let numberRect;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   fill(0)
- 
 }
 
+//Changing the width of the rectangles
+//through keyboard interactions
 function keyPressed() {
   if (key === "ArrowLeft") {
     w -= 1
@@ -27,7 +25,7 @@ function keyPressed() {
 }
 
 function drawFlag(x,y) {
-  line(x,y,x,y-50)
+  line(x,y,x,y-50) //Coordinates of the highest peak
   fill("green")
   triangle(x,y-50,x+20,y-40,x,y-30)
   fill(0)
@@ -36,6 +34,7 @@ function drawFlag(x,y) {
 function generateTerrain() {
   //will be used for generating height
   let time = noiseTime
+  let heightSum = 0;
   
   //Used to determine highest peak
   let yHighest = 0;
@@ -59,6 +58,7 @@ function generateTerrain() {
     heightSum += h
     
     
+    
   }
   drawFlag(xHighest,height- yHighest)
 
@@ -69,14 +69,14 @@ function generateTerrain() {
   numberRect = width/w
 
   //Average height visual
-  fill("Yellow")
-  rect(0,height - heightSum/numberRect,width,30)
-
+  fill("yellow")
+  rect(0,height-(heightSum/numberRect),width,30)
+//                         ^
+//                         |
+//            Calculates the average height
 }
 
 function draw() {
   background(220);
-  randomSeed(100);
   generateTerrain()
-  
 }
