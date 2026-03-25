@@ -11,10 +11,12 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(0,30);
 
   //if no deletions, loop by item
   for (let n of nodes) {
+    n.move()
+    n.connect(nodes)
     n.display()
     
   }
@@ -52,5 +54,47 @@ class csNode{
     fill(this.c)
     noStroke()
     circle(this.x,this.y,this.size)
+  }
+
+  move(){
+    let xSpeed = noise(this.xTime); //0-1
+    xSpeed = map(xSpeed, 0 ,1, -this.maxSpeed, this.maxSpeed);
+    this.xTime += this.timeShift;
+
+    this.x += xSpeed;
+    if (this.x<0) {
+      this.x = width
+    }
+    else if (this.x > width) {
+      this.x = 0 
+    }
+
+    //DO the same thing for y component
+    let ySpeed = noise(this.yTime)
+    ySpeed = map(ySpeed, 0 , 1, -this.maxSpeed, this.maxSpeed)
+    this.yTime += this.timeShift;
+
+    this.y += ySpeed;
+    if (this.y<0) {
+      this.y = height;
+    }
+    else if (this.y > height) {
+      this.y = 0 ;
+    }
+  }
+
+  connect(nodeArray){
+    //check if the current csNode is close to any other
+    //cs Node, and if so join with a line
+    stroke(this.c)
+    for(let n of nodeArray){
+      // this.x, this.y,      n.x,n.y
+      if (n !== this) {
+        let d = dist(this.x,this.y,n.x,n.y)
+        if (d < reach) line(this.x,this.y,n.x,n.y)
+      }
+
+    }
+
   }
 }
