@@ -17,22 +17,29 @@ function setup() {
     if (vehicle.direction === "right") {
       vehicle.x = random(0,width);
       vehicle.y = random(height/2+30,(3*height)/4 - 20)
+      eastbounds.push(vehicle)
     }else{
       vehicle.x = random(0,width);
       vehicle.y = random(height/4,height/2 - 30)
+      westbounds.push(vehicle)
     }
     vehicles.push(vehicle)
   }
 
-  console.log(vehicles)
+  //console.log(vehicles)
+  console.log(eastbounds)
+  console.log(westbounds)
 }
 
 function draw() {
   background(220);
   drawRoad()
-  for(let vehicle of vehicles){
-    vehicle.display()
-    vehicle.move()
+  for(let vehicle of eastbounds){
+    vehicle.action()
+  }
+
+  for(let vehicle of westbounds){
+    vehicle.action()
   }
 
 }
@@ -96,10 +103,7 @@ class Vehicle{
     }
   }
 
-  action(){
-    this.display()
-    this.move()
-  }
+  
 
   move(){
     if (this.direction === "right") {
@@ -116,5 +120,26 @@ class Vehicle{
     if (this.x < 0) {
       this.x = width - 30
     }
+  }
+
+  action(){
+    this.display()
+    this.move()
+  }
+
+  speedUp(){
+    if (this.direction === "right") {
+      this.xSpeed += random(-20,10)
+    }else{
+      this.xSpeed -= random(-20,10)
+    }
+  }
+
+  speedDown(){
+
+  }
+
+  changeColor(){
+
   }
 }
