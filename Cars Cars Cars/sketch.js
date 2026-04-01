@@ -5,25 +5,23 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let vehicles = [];
 let directions = ["left","right"]
 let eastbounds = [];
 let westbounds = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 50; i++) {
     let vehicle = new Vehicle(0,0)
     if (vehicle.direction === "right") {
-      vehicle.x = random(0,width);
-      vehicle.y = random(height/2+30,(3*height)/4 - 20)
+      vehicle.x = Math.round(random(0,width));
+      vehicle.y = Math.round(random(height/2+30,(3*height)/4 - 20));
       eastbounds.push(vehicle)
     }else{
-      vehicle.x = random(0,width);
-      vehicle.y = random(height/4,height/2 - 30)
+      vehicle.x = Math.round(random(0,width));
+      vehicle.y = Math.round(random(height/4+20,height/2 - 30));
       westbounds.push(vehicle)
     }
-    vehicles.push(vehicle)
   }
 
   //console.log(vehicles)
@@ -36,10 +34,16 @@ function draw() {
   drawRoad()
   for(let vehicle of eastbounds){
     vehicle.action()
+    vehicle.speedUp()
+    vehicle.speedDown()
+    vehicle.changeColor()
   }
 
   for(let vehicle of westbounds){
     vehicle.action()
+    vehicle.speedUp()
+    vehicle.speedDown()
+    vehicle.changeColor()
   }
 
 }
@@ -106,6 +110,7 @@ class Vehicle{
   
 
   move(){
+    //Eastbound
     if (this.direction === "right") {
       this.x += this.xSpeed
     }
@@ -113,7 +118,7 @@ class Vehicle{
       this.x = 0
     }
 
-    
+    //Westbound
     if (this.direction === "left") {
       this.x -= this.xSpeed
     }
@@ -128,18 +133,37 @@ class Vehicle{
   }
 
   speedUp(){
-    if (this.direction === "right") {
-      this.xSpeed += random(-20,10)
-    }else{
-      this.xSpeed -= random(-20,10)
+    let diceRoll = Math.round(random(0,100))
+    console.log(diceRoll)
+    if (diceRoll === 1) {
+      if (this.direction === "right") {
+        this.xSpeed += random(0,2)
+      }else{
+        this.xSpeed -= random(0,-2)
+      }
     }
+    
   }
 
   speedDown(){
-
+    let diceRoll = Math.round(random(0,100))
+    //console.log(diceRoll)
+    if (diceRoll === 1) {
+      if (this.direction === "right") {
+        this.xSpeed += random(0,-2)
+      }else{
+        this.xSpeed -= random(0,2)
+      }
+    }
   }
 
   changeColor(){
-
+    let diceRoll = Math.round(random(0,100))
+    if (diceRoll === 1) {
+      for(let c of this.color){
+        c = random(0,255)
+      }
+    }
+    
   }
 }
