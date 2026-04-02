@@ -34,16 +34,11 @@ function draw() {
   drawRoad()
   for(let vehicle of eastbounds){
     vehicle.action()
-    vehicle.speedUp()
-    vehicle.speedDown()
-    vehicle.changeColor()
+   
   }
 
   for(let vehicle of westbounds){
     vehicle.action()
-    vehicle.speedUp()
-    vehicle.speedDown()
-    vehicle.changeColor()
   }
 
 }
@@ -130,6 +125,9 @@ class Vehicle{
   action(){
     this.display()
     this.move()
+    this.speedUp()
+    this.speedDown()
+    this.changeColor()
   }
 
   speedUp(){
@@ -137,7 +135,7 @@ class Vehicle{
     console.log(diceRoll)
     if (diceRoll === 1) {
       if (this.direction === "right") {
-        this.xSpeed += random(0,2)
+        this.xSpeed = constrain(this.xSpeed + random(0,2), 5, 15 ) 
       }else{
         this.xSpeed -= random(0,-2)
       }
@@ -150,9 +148,9 @@ class Vehicle{
     //console.log(diceRoll)
     if (diceRoll === 1) {
       if (this.direction === "right") {
-        this.xSpeed += random(0,-2)
+        this.xSpeed = constrain(this.xSpeed+random(0,-2),5,15) 
       }else{
-        this.xSpeed -= random(0,2)
+        this.xSpeed = constrain(this.xSpeed + random(0,2), -15,5)
       }
     }
   }
@@ -165,5 +163,12 @@ class Vehicle{
       }
     }
     
+  }
+}
+
+class TrafficLight{
+  constructor(x,y){
+    this.x = x; this.y = y;
+    this.color = ["red", "green"]
   }
 }
