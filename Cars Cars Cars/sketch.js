@@ -11,6 +11,7 @@ let westbounds = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  //Fill out the eastbound and westbound with cars
   for (let i = 0; i < 50; i++) {
     let vehicle = new Vehicle(0,0) // create a vehicle at (0,0)
     if (vehicle.direction === "right") {
@@ -32,10 +33,13 @@ function draw() {
 
   background(220);
   drawRoad()
+
+  //Rendering vehicle that go from righ to left
   for(let vehicle of eastbounds){
     vehicle.action()
   }
 
+  //Rendering vehicles from right to left
   for(let vehicle of westbounds){
     vehicle.action()
   }
@@ -60,7 +64,7 @@ class Vehicle{
     this.type = Math.round(random(1,2)); //Random number that determines the type of the car (1 -> Car, 2 -> Truck)
     this.color = [random(255), random(255), random(255)] // Random values of rgb
     this.direction = directions[Math.round(random(0,1))] //Pick a random direction
-    this.xSpeed = 5;
+    this.xSpeed = 5; //Default speed
   }
 
   drawCar(){
@@ -150,9 +154,10 @@ class Vehicle{
     //1 % chance of getting any number
     let diceRoll = Math.round(random(0,100))
     if (diceRoll === 1) {
+      //for eastbound cars decrease the xSpeed
       if (this.direction === "right") {
         this.xSpeed = constrain(this.xSpeed+random(0,-2),5,15) 
-      }else{
+      }else{ // for westbound cars increase the xSpeed 
         this.xSpeed = constrain(this.xSpeed + random(0,2), -15,5)
       }
     }
@@ -162,8 +167,8 @@ class Vehicle{
     //1 % of getting any number
     let diceRoll = Math.round(random(0,100))
     if (diceRoll === 1) {
-      for(let c of this.color){
-        c = random(0,255)
+      for(let col of this.color){
+        col = random(0,255)
       }
     }
     
@@ -177,8 +182,8 @@ class TrafficLight{
   }
 
   display(){
-      fill("green");
-      circle(100,100,200)
+      //fill("green");
+      //circle(100,100,200)
       //console.log(true)
     
   }
