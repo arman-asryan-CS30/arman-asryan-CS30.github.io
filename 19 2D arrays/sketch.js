@@ -15,7 +15,7 @@ let grid = [
 
 let row = grid.length;
 let column = grid[0].length;
-let tileSize = 60
+let tileSize = 100
 
 function setup() {
   createCanvas(column * tileSize, row*tileSize);
@@ -25,7 +25,6 @@ function setup() {
 function draw() {
   background(250);
   renderGrid()
-  text(getCurrentX() + "," + getCurrentY(),width/2, height/2,)
 }
 
 function flip(x,y) {
@@ -38,7 +37,7 @@ function renderGrid() {
     for (let x = 0; x < column; x++) {
       let fillColor = grid[y][x]
         fill(fillColor)
-        square(x*tileSize,y*tileSize,60)
+        square(x*tileSize,y*tileSize,tileSize)
       }
     } 
 }
@@ -54,5 +53,14 @@ function getCurrentY() {
 }
 
 function mousePressed() {
-  flip(getCurrentX(),getCurrentY())
+  if (mouseX<width && mouseY < height) {
+
+    let x = getCurrentX()
+    let y = getCurrentY()
+    
+    flip(x,y)
+
+    if (x-1 >= 0) flip(x-1,y)
+    if(y-1 >= 0) flip(x,y-1)
+  }
 }

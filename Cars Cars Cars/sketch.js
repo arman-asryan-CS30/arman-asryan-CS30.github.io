@@ -1,15 +1,21 @@
-// Project Title
-// Your Name
-// Date
+// Cars Cars Cars
+// Arman Asryan
+// 
 //
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
-
 let directions = ["left","right"]
 let eastbounds = [];
 let westbounds = [];
 
+let light;//Traffic Light
+
+//Keeping track of time
+let starting; let current;
+let elapsed;
+
 function setup() {
+  starting = frameCount;
+  
+
   createCanvas(windowWidth, windowHeight);
   //Fill out the eastbound and westbound with cars
   for (let i = 0; i < 50; i++) {
@@ -25,15 +31,38 @@ function setup() {
       westbounds.push(vehicle)
     }
   }
+
+  //Traffic Light
+  light = new TrafficLight(100,100)
 }
 
 function draw() {
-  let light =new TrafficLight(100,100);
-  light.display()
-
   background(220);
-  drawRoad()
+  //Track the frame Counts
+  current = frameCount;
+  elapsed = abs(starting - current)
 
+
+
+  fill(light.color)
+  circle(light.x,light.y,100)
+  if (elapsed > 120) {
+    //Change the color to green
+    light.color = "Green"
+    
+    //Start moving again
+    for(let car of eastbounds){
+      car.moving = true;
+    }
+
+    //Start moving again
+    for(let car of westbounds){
+      car.moving = true;
+    }
+  }
+  
+  drawRoad()
+  
   //Rendering vehicle that go from righ to left
   for(let vehicle of eastbounds){
     vehicle.action()
@@ -44,6 +73,25 @@ function draw() {
     vehicle.action()
   }
 
+}
+
+function keyPressed() {
+  if (key === " ") {
+    light.color = "Red" 
+    
+    //Stop th movement of the cars
+    for(let car of eastbounds){
+      car.moving = false;
+    }
+
+    //Stop the movement of the cars
+    for(let car of westbounds){
+      car.moving = false;
+    }
+    
+    //Restart the counting
+    starting = frameCount;
+  }
 }
 
 function drawRoad() {
@@ -65,6 +113,7 @@ class Vehicle{
     this.color = [random(255), random(255), random(255)] // Random values of rgb
     this.direction = directions[Math.round(random(0,1))] //Pick a random direction
     this.xSpeed = 5; //Default speed
+    this.moving = true; //Changes depending on the Traffic Light
   }
 
   drawCar(){
@@ -113,7 +162,7 @@ class Vehicle{
 
   move(){
     //Eastbound
-    if (this.direction === "right") {
+    if (this.direction === "right" && this.moving) {
       this.x += this.xSpeed
     }
     if (this.x > width) {
@@ -121,7 +170,7 @@ class Vehicle{
     }
 
     //Westbound
-    if (this.direction === "left") {
+    if (this.direction === "left" && this.moving) {
       this.x -= this.xSpeed
     }
     if (this.x < 0) {
@@ -167,24 +216,20 @@ class Vehicle{
     //1 % of getting any number
     let diceRoll = Math.round(random(0,100))
     if (diceRoll === 1) {
-      for(let col of this.color){
-        col = random(0,255)
-      }
+    //Change values of rgb
+    this.color[0] = random(255)
+    this.color[1] = random(255)
+    this.color[2] = random(255)
     }
     
   }
 }
 
+
 class TrafficLight{
   constructor(x,y){
     this.x = x; this.y = y;
-    this.color = "green";
-  }
-
-  display(){
-      //fill("green");
-      //circle(100,100,200)
-      //console.log(true)
-    
+    this.color = "Green"
   }
 }
+
