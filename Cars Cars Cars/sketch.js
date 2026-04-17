@@ -1,7 +1,10 @@
 // Cars Cars Cars
 // Arman Asryan
-// 
-//
+// Mar 26 / 2026
+
+
+//Global variables 
+
 let directions = ["left","right"]
 let eastbounds = [];
 let westbounds = [];
