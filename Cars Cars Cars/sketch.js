@@ -18,7 +18,7 @@ function setup() {
 
   createCanvas(windowWidth, windowHeight);
   //Fill out the eastbound and westbound with cars
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 10; i++) {
     let vehicle = new Vehicle(0,0) // create a vehicle at (0,0)
     if (vehicle.direction === "right") {
       //Rewrite the coordinates according to their direction
@@ -75,6 +75,26 @@ function draw() {
 
 }
 
+function mousePressed() {
+  
+  //Create a new vehicle with direction "right" after every left click
+  if (mouseButton === LEFT && !keyIsDown(SHIFT)) {
+    let vehicle = new Vehicle(0,0)
+    vehicle.x = Math.round(random(0,width));
+    vehicle.y = Math.round(random(height/2+30,(3*height)/4 - 20));
+    vehicle.direction = "right"
+    eastbounds.push(vehicle)
+  }
+  
+  if (mouseButton === LEFT && keyIsDown(SHIFT)) {
+    let vehicle = new Vehicle(0,0)
+    vehicle.x = Math.round(random(0,width));
+    vehicle.y = Math.round(random(height/4+20,height/2 - 30));
+    vehicle.direction = "left"
+    westbounds.push(vehicle)
+  }
+}
+
 function keyPressed() {
   if (key === " ") {
     light.color = "Red" 
@@ -109,7 +129,7 @@ function drawRoad() {
 class Vehicle{
   constructor(x,y){
     this.x = x; this.y = y;
-    this.type = Math.round(random(1,2)); //Random number that determines the type of the car (1 -> Car, 2 -> Truck)
+    this.type = Math.round(random(0,1)); //Random number that determines the type of the car (0 -> Car, 1 -> Truck)
     this.color = [random(255), random(255), random(255)] // Random values of rgb
     this.direction = directions[Math.round(random(0,1))] //Pick a random direction
     this.xSpeed = 5; //Default speed
@@ -151,7 +171,7 @@ class Vehicle{
   }
 
   display(){
-    if (this.type === 1) {
+    if (this.type === 0) {
       this.drawCar()
     }else{
       this.drawTruck()
