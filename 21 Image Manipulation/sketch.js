@@ -6,6 +6,7 @@
 //Part 2: using video
 
 let myImage;
+let myVideo;
 
 function preload() {
   //called BEFORE setup. Wont conclude
@@ -14,25 +15,45 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(myImage.width,myImage.height);
+  createCanvasmyImage.width,myImage.height);
+  createCanvas(640,480);
+ myVideo = createCapture(VIDEO)
   pixelDensity(1)
 }
 
 function draw() {
   background(220);
-  image(myImage,0,0)
-
+  //image(myImage,0,0)
+  image(myVideo,0,0);
   //access and modify pixels on the canvas
   loadPixels(); //dumps the data from canvas into array
-
+  background(0)
   // for(let i = 0; i<500; i+=4){
   //   pixels[i] =255
   // }
   // pixels[0] = 255;
 
   //boost()
-  greyscale()
-  updatePixels()
+  //greyscale()
+  //updatePixels()
+  textImage()
+}
+
+function textImage() {
+  fill(255)
+  let scaleAmount = 5;
+  textSize(scaleAmount)
+
+  for (let x = 0; x < width; x+= scaleAmount) {
+    for (let y = 0; y < height; y+=scaleAmount) {
+      let avg = getAvg(x,y)
+      if(avg>140) text("👹",x,y)
+      if(avg>170) text("🤢",x,y)
+      if(avg>110) text("🤖",x,y)
+      if(avg>90) text(".",x,y)
+    }
+    
+  }
 }
 
 function setPixelOneD(pos,r,g,b) {
