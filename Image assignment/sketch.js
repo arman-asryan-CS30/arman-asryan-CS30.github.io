@@ -10,7 +10,8 @@ let myImage;
 function preload() {
   //myImage = loadImage("./assets/chip.jpg")
   //myImage = loadImage("./assets/race.jpg")
-  myImage = loadImage("./assets/nuit.jpg")
+  //myImage = loadImage("./assets/nuit.jpg")
+  myImage = loadImage("./assets/hand.jpg")
 }
 
 function setup() {
@@ -38,6 +39,13 @@ function draw() {
   //   }
   // }
   
+
+  //Average color
+  // for (let x = 0; x < width; x++) {
+  //   for (let y = 0; y < height; y++) {
+  //     getAvg(x,y)
+  //   }
+  // }
   
   updatePixels()
 }
@@ -97,13 +105,32 @@ function getAvg(x,y) {
     g = 150
     b = 210
   }
+  else if(avg >= 105 && avg<155){
+    r =120
+    g = 180
+    b = 60
+  }
+  else if(avg >= 55 && avg<105){
+    r =130
+    g = 30
+    b = 130
+  }else{
+    r =90
+    g = 10
+    b = 50
+  }
+
+  setPixel(x,y,r,g,b)
 }
+
+
 
 function setPixelOneD(pos,r,g,b) {
   pixels[pos] = r;
   pixels[pos+1] = g;
   pixels[pos+2] = b;
 }
+
 function setPixel(x,y,r,g,b) {
   let index = ((y*width) + x)*4;
   setPixelOneD(index,r,g,b);
