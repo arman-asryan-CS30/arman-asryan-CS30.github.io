@@ -46,10 +46,21 @@ function draw() {
   //     getAvg(x,y)
   //   }
   // }
+
+  
+  
+  //Horzontal Mirroring
+  // for (let x = 0; x < width/2; x++){
+  //   for (let y = 0; y < height; y++) {
+  //    mirror(x,y)
+  //   } 
+  // }
   
   updatePixels()
 }
 
+
+//Majority color
 function majorityColor(x,y) {
   let index = ((y*width+x))*4
   let r = pixels[index]
@@ -78,6 +89,7 @@ function majorityColor(x,y) {
   
 }
 
+//No Green Right Side
 function noGreen(x,y) {
   let index = ((y*width+x))*4
   let r = pixels[index]
@@ -88,6 +100,7 @@ function noGreen(x,y) {
   
 }
 
+//Five-Color Posterize
 function getAvg(x,y) {
   let index = ((y*width+x))*4
   let r = pixels[index]
@@ -124,6 +137,19 @@ function getAvg(x,y) {
 }
 
 
+//Horizontal Mirroring
+function mirror(x,y) {
+  let mirrorX = width - x
+  let mirrorIndex = (y*width+mirrorX)*4
+
+  let r = pixels[mirrorIndex]
+  let g = pixels[mirrorIndex+1]
+  let b = pixels[mirrorIndex+2]
+  
+  setPixel(x,y,r,g,b)
+
+  
+}
 
 function setPixelOneD(pos,r,g,b) {
   pixels[pos] = r;
